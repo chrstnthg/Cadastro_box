@@ -4,11 +4,19 @@ from tkinter import messagebox
 
 
 def gravar_contato():
-    with open("dados.csv", "a", newline="") as arquivo_dados:
-        escritor = csv.writer(arquivo_dados)
-        escritor.writerow([entry_nome.get(), entry_fone.get(), entry_email.get()])
-        messagebox.showinfo("Sistema contatos", "Contato cadastrado com sucesso!")
 
+    if entry_nome.get().strip() == "" or entry_fone.get().strip() == "" or entry_email.get().strip() == "":
+        messagebox.showerror("Erro ao gravar", "Todos os campos devem ser preenchidos")
+
+    else:
+        with open("dados.csv", "a", newline="") as arquivo_dados:
+            escritor = csv.writer(arquivo_dados)
+            escritor.writerow([entry_nome.get().strip(), entry_fone.get().strip(), entry_email.get().strip()])
+            messagebox.showinfo("Sistema contatos", "Contato cadastrado com sucesso!")
+            entry_nome.delete(0, tk.END)
+            entry_fone.delete(0, tk.END)
+            entry_email.delete(0, tk.END)
+            entry_nome.focus_set()
 
     ler_contatos()
 
