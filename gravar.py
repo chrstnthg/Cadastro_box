@@ -13,9 +13,7 @@ def gravar_contato():
             escritor = csv.writer(arquivo_dados)
             escritor.writerow([entry_nome.get().strip(), entry_fone.get().strip(), entry_email.get().strip()])
             messagebox.showinfo("Sistema contatos", "Contato cadastrado com sucesso!")
-            entry_nome.delete(0, tk.END)
-            entry_fone.delete(0, tk.END)
-            entry_email.delete(0, tk.END)
+            limpar_dados()
             entry_nome.focus_set()
 
     ler_contatos()
@@ -28,6 +26,27 @@ def ler_contatos():
         for linha in leitor:
             lista_contatos.insert("end", linha[0])
 
+def buscar_contato_pelo_indice(indice_procurado):
+    with open("dados.csv","r") as arquivos_dados:
+        leitor = csv.reader(arquivos_dados)
+        contador = 0
+        for linha in leitor:
+            if contador == indice_procurado:
+                entry_nome.insert(tk.END,linha[0])
+                entry_fone.insert(tk.END,linha[1])
+                entry_email.insert(tk.END,linha[2])
+                break
+            contador = contador + 1
+
+def obter_indice(event):
+    indice = lista_contatos.curselection()[0]
+    limpar_dados()
+    buscar_contato_pelo_indice(indice)
+
+def limpar_dados():
+    entry_nome.delete(0, tk.END)
+    entry_fone.delete(0, tk.END)
+    entry_email.delete(0, tk.END)
 
 janela = tk.Tk()
 
@@ -45,6 +64,7 @@ entry_email = tk.Entry(janela)
 button_gravar = tk.Button(text="Gravar Contato", command=gravar_contato)
 
 lista_contatos = tk.Listbox(janela, selectmode="single")
+lista_contatos.bind("<<ListboxSelect>>", obter_indice)
 
 label_nome.config(font=("Arial", 16))
 label_nome.place(x=10, y=10)
