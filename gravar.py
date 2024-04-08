@@ -77,6 +77,7 @@ entry_email = tk.Entry(janela)
 
 button_gravar = tk.Button(text="Salvar", command=gravar_contato)
 button_apagar = tk.Button(text="Apagar", command=apagar_contato)
+button_limpar = tk.Button(text="Limpar", command=limpar_dados)
 
 lista_contatos = tk.Listbox(janela, selectmode="single")
 lista_contatos.bind("<<ListboxSelect>>", obter_indice)
@@ -104,6 +105,9 @@ button_gravar.place(x=10, y=230, width=150, height=60)
 
 button_apagar.config(font=("Arial", 16))
 button_apagar.place(x=160, y=230, width=150, height=60)
+
+button_limpar.config(font=("Arial", 16))
+button_limpar.place(x=230, y=10, width=80, height=30)
 
 lista_contatos.config(font=("Arial", 16))
 lista_contatos.place(x=320, y=40, width=250)
