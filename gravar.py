@@ -54,7 +54,7 @@ def apagar_contato():
         contato_removido = linhas.pop(indice)
 
         with open("dados.csv", "w", newline="") as arquivo_dados:
-            escritor = csv.writer(arquivo_dados)
+            escritor = csv.cr(arquivo_dados)
             escritor.writerows(linhas)
 
         messagebox.showinfo("Sistema contatos", f"Contato '{contato_removido[0]}' removido com sucesso!")
@@ -62,6 +62,7 @@ def apagar_contato():
     else:
         messagebox.showerror("Erro ao apagar", "Nenhum contato selecionado para apagar.")
     limpar_dados()
+    ler_contatos()
 
 janela = tk.Tk()
 janela.geometry("580x300")
